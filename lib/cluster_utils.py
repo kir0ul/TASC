@@ -44,10 +44,10 @@ def init_worker():
     
 
 def align_all_sequentially(signal, boundaries, labels, time_off=np.arange(-1, 2), len_off=np.arange(-1, 2), 
-                           alpha=0.5, filtparam=0.75,
+                           alpha=0.5, filtparam=3,
                            valid_starts=None, reinsert_gaps=True,
                            centermode='median', centerreal=True, centercrop=None, 
-                           criteria='euclidean',crop=False):
+                           criteria='euclidean'):
     '''
     Aligns the space segment by segment
     TOOD:    optional - provide precalculated centers...
@@ -93,8 +93,10 @@ def align_all_sequentially(signal, boundaries, labels, time_off=np.arange(-1, 2)
     align_params = {}
     corr_i = 0
     total = len(filter_idx)
+
+    # TODO: tie to the machine?
     n_workers = min(len(variants), 8)
-    n_workers = 8
+
     print(f'Starting {n_workers} processes. PIDs:')
     with multiprocessing.Pool(n_workers, initializer=init_worker) as pool:
         try:

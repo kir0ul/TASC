@@ -261,7 +261,8 @@ def weightedL2(arr1,arr2,w=None):
     if w is None:
         w = np.ones(max_len)
         w[:min_len] += np.hanning(min_len)
-        w = w[:, None]
+        # w = w[:, None]
+        w = np.expand_dims(w, 1)
 
     q = a_res-b_res
     q = np.sqrt(np.nansum((w*q*q)))
@@ -301,7 +302,8 @@ def weightedL2_feature(arr1,arr2,w=None):
     if w is None:
         w = np.ones(max_len)
         w[:min_len] += np.hanning(min_len)
-        w = w[:, None]
+        # w = w[:, None]
+        w = np.expand_dims(w, 1)
 
     q = a_res-b_res
     q = np.sqrt(np.nansum((w*q*q), axis=0))
