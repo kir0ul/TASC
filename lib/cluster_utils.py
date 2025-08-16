@@ -86,7 +86,7 @@ def align_all_sequentially(signal, boundaries, labels, time_off=np.arange(-1, 2)
     
     if valid_starts is None:
         valid_starts = np.ones(len(signal), dtype=int)
-    variants = get_variants(signal, f_boundaries, f_labels, centers, valid_starts, time_off, len_off, alpha, criteria, crop, cluster_sizes)
+    variants = get_variants(signal, f_boundaries, f_labels, centers, valid_starts, time_off, len_off, alpha, criteria, crop=centercrop, cluster_sizes=cluster_sizes)
     
     align_boundaries = {}
     align_costs = {}
@@ -867,4 +867,3 @@ def print_cluster_sizes(cluster_sizes):
     sub_clusters.sort()
     pstring = str({key:cluster_sizes[key] for key in sub_clusters})
     print(f'Size of a subgroup of clusters: {pstring}')
-    
